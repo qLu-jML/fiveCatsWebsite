@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Five Cats Studios - Cozy Games, Crafted with Care</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo_32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo_64.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-deep:       #0F0D1A;
+      --bg-main:       #1A1A2E;
+      --bg-card:       rgba(255,255,255,0.04);
+      --border:        rgba(232,104,63,0.18);
+      --orange:        #E8683F;
+      --gold:          #F5CC5B;
+      --amber:         #E8A83E;
+      --pink:          #D4547A;
+      --green:         #4A7A3D;
+      --cream:         #FCF5D7;
+      --text:          #FCF5D7;
+      --text-dim:      rgba(252,245,215,0.65);
+      --text-faint:    rgba(252,245,215,0.35);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-deep);
+      color: var(--text);
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .ks-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 44px;
+      background: linear-gradient(90deg, #05CE78 0%, #00B86A 100%);
+      color: #fff; display: flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: 'Inter', sans-serif; font-size: 0.875rem; font-weight: 600; text-align: center; letter-spacing: 0.01em;
+    }
+    .ks-banner-badge { background: rgba(0,0,0,0.18); border-radius: 4px; padding: 2px 8px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    /* NAVIGATION */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+    nav.no-banner { padding-top: 1.5rem; }
+    nav.with-banner { padding-top: calc(44px + 1.5rem); }
+    nav a { color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+    nav a:hover { color: var(--orange); }
+    .nav-logo { font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; }
+    .nav-menu { display: flex; gap: 2rem; list-style: none; }
+    .nav-socials { display: flex; gap: 1rem; }
+    .nav-socials a { font-size: 1.1rem; }
+
+    /* SCROLL INDICATOR */
+    .scroll-indicator { position: fixed; bottom: 2rem; right: 2rem; z-index: 50; width: 3rem; height: 3rem; border-radius: 50%; background: rgba(232,104,63,0.1); border: 2px solid var(--orange); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--orange); font-weight: 600; transition: all 0.3s ease; }
+    .scroll-indicator.hide { opacity: 0; pointer-events: none; }
+
+    /* SPACING */
+    .pad-top { padding-top: 6rem; }
+    .pad-bottom { padding-bottom: 4rem; }
+    .margin-bottom { margin-bottom: 3rem; }
+    .margin-top { margin-top: 3rem; }
+
+    /* CONTAINER & SECTIONS */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 6rem 2rem; }
+
+    /* HEADER / HERO */
+    header { position: relative; padding-top: 15rem; padding-bottom: 8rem; background: linear-gradient(135deg, rgba(14,13,26,0.8), rgba(26,26,46,0.6)), radial-gradient(circle at 80% 20%, rgba(232,104,63,0.15), transparent 50%); }
+    .hero-content { max-width: 700px; }
+    h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-weight: 800; line-height: 1.2; margin-bottom: 1rem; background: linear-gradient(135deg, var(--cream), var(--gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    h1 em { font-style: italic; color: var(--orange); -webkit-text-fill-color: var(--orange); }
+    h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    h4 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem; }
+    .subtitle { font-size: 1.2rem; color: var(--text-dim); margin-bottom: 2rem; line-height: 1.8; }
+
+    /* BUTTONS */
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 2rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; font-size: 1rem; transition: all 0.3s ease; border: none; cursor: pointer; gap: 0.5rem; }
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: var(--amber); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(232,104,63,0.3); }
+    .btn-secondary { background: transparent; color: var(--orange); border: 2px solid var(--orange); }
+    .btn-secondary:hover { background: var(--orange); color: #fff; }
+    .btn-primary-sm { background: var(--orange); color: #fff; padding: 0.5rem 1.5rem; font-size: 0.9rem; }
+
+    /* FEATURES GRID */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem; }
+    .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 1rem; padding: 2rem; transition: all 0.3s ease; }
+    .feature-card:hover { background: rgba(255,255,255,0.08); border-color: rgba(232,104,63,0.4); transform: translateY(-4px); }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+
+    /* COZINESS PILLAR */
+    .coziness-pillar { position: relative; padding: 3rem; background: linear-gradient(135deg, rgba(26,26,46,0.6), rgba(14,13,26,0.8)); border: 1px solid var(--border); border-radius: 1rem; margin: 2rem 0; }
+    .coziness-pillar h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; }
+
+    /* GAME CARD */
+    .game-card { position: relative; border-radius: 1rem; overflow: hidden; background: var(--bg-card); border: 1px solid var(--border); transition: all 0.3s ease; }
+    .game-card:hover { border-color: var(--orange); background: rgba(255,255,255,0.08); transform: translateY(-8px); box-shadow: 0 12px 40px rgba(232,104,63,0.2); }
+    .game-card-img { width: 100%; height: 250px; background: linear-gradient(135deg, rgba(232,104,63,0.2), rgba(245,204,91,0.1)); display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+    .game-card-content { padding: 1.5rem; }
+    .game-card h3 { margin-bottom: 0.5rem; }
+    .game-card p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .game-card .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .tag { background: rgba(232,104,63,0.15); color: var(--orange); padding: 0.3rem 0.8rem; border-radius: 0.25rem; font-size: 0.8rem; font-weight: 500; }
+
+    /* TESTIMONIAL */
+    .testimonial { background: var(--bg-card); border-left: 4px solid var(--orange); padding: 2rem; border-radius: 0.5rem; margin: 2rem 0; }
+    .testimonial p { font-style: italic; color: var(--text-dim); margin-bottom: 1rem; }
+    .testimonial-author { color: var(--gold); font-weight: 600; }
+
+    /* FOOTER */
+    footer { background: var(--bg-card); padding: 2rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--orange); text-decoration: none; transition: color 0.3s ease; }
+    footer a:hover { color: var(--gold); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      h1 { font-size: 2.8rem; }
+      h2 { font-size: 2rem; }
+      section { padding: 4rem 1.5rem; }
+      nav { padding: 1rem 1.5rem; }
+      .features-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 2rem; }
+      h2 { font-size: 1.6rem; }
+      h3 { font-size: 1.3rem; }
+      section { padding: 3rem 1.5rem; }
+      nav { padding: 1rem 1rem; flex-direction: column; gap: 1rem; }
+      .nav-menu { gap: 1rem; font-size: 0.9rem; }
+      .features-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .game-card-img { height: 150px; font-size: 2.5rem; }
+      .subtitle { font-size: 1rem; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.3rem; }
+      .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+      section { padding: 2rem 1rem; }
+      nav { padding: 0.8rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- KICKSTARTER BANNER -->
+<div class="ks-banner">
+  <span class="ks-banner-badge">FEATURED</span>
+  <span>Five Cats Studios Kickstarter Campaign is LIVE! Check it out and support our cozy games vision!</span>
+  <a href="https://www.kickstarter.com/projects/fivecatsstudios/cozy-game-goodness-unwrapped" target="_blank" style="color: #fff; text-decoration: underline; margin-left: 1rem; font-weight: 700;">Launch Campaign</a>
+</div>
+
+<!-- NAVIGATION -->
+<nav class="with-banner">
+  <a href="#" class="nav-logo">Five Cats Studios</a>
+  <ul class="nav-menu">
+    <li><a href="#games">Games</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-socials">
+    <a href="https://twitter.com/fiveCatsStudios" target="_blank" title="Twitter">𝕏</a>
+    <a href="https://discord.gg/YourDiscordLink" target="_blank" title="Discord">💬</a>
+  </div>
+</nav>
+
+<!-- SCROLL INDICATOR -->
+<div class="scroll-indicator" id="scrollIndicator">0%</div>
+
+<!-- HEADER / HERO -->
+<header>
+  <div class="container">
+    <div class="hero-content">
+      <h1>Cozy Games, <em>Crafted</em> with Care</h1>
+      <p class="subtitle">Step into our enchanting worlds where warm aesthetics meet meaningful gameplay. At Five Cats Studios, every game is designed to be a comforting escape.</p>
+      <a href="#games" class="btn btn-primary">Discover Our Games</a>
+    </div>
+  </div>
+</header>
+
+<!-- GAMES SECTION -->
+<section id="games">
+  <div class="container">
+    <h2>Our Games</h2>
+    <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem;">Each game is meticulously crafted to bring joy and comfort to your gaming experience.</p>
+    
+    <div class="features-grid">
+      <!-- GAME 1: Sunken Vale -->
+      <div class="game-card">
+        <div class="game-card-img">🌙</div>
+        <div class="game-card-content">
+          <h3>Sunken Vale</h3>
+          <p>Explore a mystical sunken valley filled with secrets and wonders. Uncover its mysteries through exploration and puzzle-solving.</p>
+          <div class="tags">
+            <span class="tag">Adventure</span>
+            <span class="tag">Puzzle</span>
+            <span class="tag">Exploration</span>
+          </div>
+          <a href="#" class="btn btn-primary-sm">Learn More</a>
+        </div>
+      </div>
+
+      <!-- GAME 2: Constellation Keeper -->
+      <div class="game-card">
+        <div class="game-card-img">✨</div>
+        <div class="game-card-content">
+          <h3>Constellation Keeper</h3>
+          <p>A celestial gardening game where you cultivate stars and shape the cosmos. Grow constellations and bring light to the universe.</p>
+          <div class="tags">
+            <span class="tag">Simulation</span>
+            <span class="tag">Strategy</span>
+            <span class="tag">Relaxing</span>
+          </div>
+          <a href="#" class="btn btn-primary-sm">Learn More</a>
+        </div>
+      </div>
+
+      <!-- GAME 3: Heartwood Grove -->
+        <div class="game-card">
+        <div class="game-card-img">🌲</div>
+        <div class="game-card-content">
+          <h3>Heartwood Grove</h3>
+          <p>Cultivate and care for a mystical forest. Plant trees, nurture wildlife, and build your sanctuary in this relaxing simulation.</p>
+          <div class="tags">
+            <span class="tag">Simulation</span>
+            <span class="tag">Nature</span>
+            <span class="tag">Building</span>
+          </div>
+          <a href="#" class="btn btn-primary-sm">Learn More</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY COZY SECTION -->
+<section id="about" style="background: linear-gradient(135deg, rgba(14,13,26,0.4), rgba(26,26,46,0.6));">
+  <div class="container">
+    <h2>Why Cozy Games?</h2>
+    <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem; max-width: 700px;">In a world of high-stress competition and overwhelming stimulation, cozy games offer something precious: a space to breathe, to be present, and to enjoy yourself at your own pace.</p>
+    
+    <div class="features-grid">
+      <div class="coziness-pillar">
+        <h3>🧘 Relaxation</h3>
+        <p>Our games prioritize calm gameplay loops that melt away stress. No time pressure, no combat, just peaceful immersion.</p>
+      </div>
+      <div class="coziness-pillar">
+        <h3>🌍 Meaningful Worlds</h3>
+        <p>Every environment is hand-crafted with intention. Discover beauty in every corner and feel connected to the world you inhabit.</p>
+      </div>
+      <div class="coziness-pillar">
+        <h3>💫 Emotional Resonance</h3>
+        <p>Our narratives explore themes of growth, belonging, and self-discovery. Games that touch the heart and linger in memory.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY SECTION -->
+<section id="community">
+  <div class="container">
+    <h2>Our Community</h2>
+    <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 3rem;">Join thousands of cozy game enthusiasts who celebrate creativity, share experiences, and support indie developers.</p>
+    
+    <div class="testimonial">
+      <p>"Playing Sunken Vale felt like coming home. The art, the music, the pacing—everything just fits. Five Cats Studios understands what makes a game truly comfortable."</p>
+      <div class="testimonial-author">— Alex K., Community Member</div>
+    </div>
+
+    <div class="testimonial">
+      <p>"I've never felt more supported by a game studio. Their Discord community is welcoming, and you can tell they genuinely care about player wellbeing."</p>
+      <div class="testimonial-author">— Jordan P., Discord Regular</div>
+    </div>
+
+    <div class="testimonial">
+      <p>"Heartwood Grove helped me through a difficult time. It's rare to find a game that's both engaging and emotionally grounding."</p>
+      <div class="testimonial-author">— Sam L., Player Since Day One</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" style="background: linear-gradient(135deg, rgba(14,13,26,0.4), rgba(26,26,46,0.6));">
+  <div class="container">
+    <h2>Get in Touch</h2>
+    <p style="color: var(--text-dim); font-size: 1.1rem; margin-bottom: 2rem; max-width: 700px;">Have questions? Want to collaborate? Or just want to share how much you love our games? We'd love to hear from you!</p>
+    
+    <div style="max-width: 500px; margin: 2rem 0;">
+      <form id="contactForm" style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <input type="text" placeholder="Your Name" required style="padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text); font-size: 1rem;">
+        <input type="email" placeholder="Your Email" required style="padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text); font-size: 1rem;">
+        <textarea placeholder="Your Message" rows="5" required style="padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--border); background: rgba(255,255,255,0.05); color: var(--text); font-size: 1rem; font-family: 'Inter', sans-serif; resize: vertical;"></textarea>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </form>
+    </div>
+
+    <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+      <p style="color: var(--text-dim); margin-bottom: 1rem;">Or reach us directly:</p>
+      <p><a href="mailto:hello@fivecatsstudios.com" style="color: var(--orange); text-decoration: none;">hello@fivecatsstudios.com</a></p>
+      <p style="color: var(--text-dim); font-size: 0.95rem; margin-top: 1rem;">Based in Grundy Center, Iowa</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem;">
+    <div>
+      <p style="font-weight: 600; margin-bottom: 0.5rem;">Five Cats Studios</p>
+      <p style="color: var(--text-dim); font-size: 0.9rem;">Crafting cozy games with care and intention.</p>
+    </div>
+    <div style="display: flex; gap: 2rem;">
+      <a href="https://twitter.com/fiveCatsStudios" target="_blank">Twitter (X)</a>
+      <a href="https://discord.gg/YourDiscordLink" target="_blank">Discord</a>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll Indicator
+  const scrollIndicator = document.getElementById('scrollIndicator');
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const scrolled = (scrollTop / docHeight) * 100;
+    scrollIndicator.textContent = Math.round(scrolled) + '%';
+    scrollIndicator.classList.toggle('hide', scrolled < 10);
+  });
+
+  // Form Handling
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    alert('Thank you for your message! We will get back to you soon.');
+    e.target.reset();
+  });
+</script>
+
+</body>
+</html>
